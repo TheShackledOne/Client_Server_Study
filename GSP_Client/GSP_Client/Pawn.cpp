@@ -1,5 +1,4 @@
 #include "Pawn.h"
-#include "Board.h"
 
 Pawn::Pawn(const std::string& imagePath, const sf::Vector2f& position, std::string& playerName, sf::Font& font)
 	: font_{ font }
@@ -17,38 +16,36 @@ Pawn::Pawn(const std::string& imagePath, const sf::Vector2f& position, std::stri
 	text_.setPosition(sprite_.getPosition().x + 50, sprite_.getPosition().y + 50);
 }
 
+void Pawn::GetPawnId(SOCKET server_s, char* buf, WSABUF wsabuf[], float& initX, float& initY, int& pawnId)
+{
+	MovePacket* m_packet = reinterpret_cast<MovePacket*>(buf);
+	m_packet->header.opCode = OP_INIT;
+
+	wsabuf[0].buf = buf;
+	wsabuf[0].len = sizeof(MovePacket);
+	DWORD send_size;
+	WSASend(server_s, wsabuf, 1, &send_size, 0, nullptr, nullptr);
+
+	wsabuf[0].len = BUFSIZE;
+	DWORD recv_size;
+	DWORD recv_flag = 0;
+	WSARecv(server_s, wsabuf, 1, &recv_size, &recv_flag, nullptr, nullptr);
+
+	MovePacket* recv_packet = reinterpret_cast<MovePacket*>(buf);
+
+	initX = recv_packet->x;
+	initY = recv_packet->y;
+	pawnId = recv_packet->Id;
+}
+
 void Pawn::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite_);
 	window.draw(text_);
 }
 
-void Pawn::move(sf::Keyboard::Key direction)
+void Pawn::move(float dx, float dy)
 {
-	float deltaX{ 0.f };
-	float deltaY{ 0.f };
-
-	switch (direction) {
-	case sf::Keyboard::Left:
-		deltaX = -SQUARE_SIZE;
-		break;
-	case sf::Keyboard::Right:
-		deltaX = SQUARE_SIZE;
-		break;
-	case sf::Keyboard::Up:
-		deltaY = -SQUARE_SIZE;
-		break;
-	case sf::Keyboard::Down:
-		deltaY = SQUARE_SIZE;
-		break;
-	default:
-		return;
-	}
-
-	sf::Vector2f newPostion = sprite_.getPosition() + sf::Vector2f(deltaX, deltaY);
-	if (newPostion.x >= 0 && newPostion.x <= SQUARE_SIZE * 7 &&
-		newPostion.y >= 0 && newPostion.y <= SQUARE_SIZE * 7) {
-		sprite_.move(deltaX, deltaY);
-		text_.move(deltaX, deltaY);
-	}
+	sprite_.move(dx, dy);
+	text_.move(dx, dy);
 }

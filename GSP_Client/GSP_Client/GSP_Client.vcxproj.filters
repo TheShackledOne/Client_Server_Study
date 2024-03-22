@@ -15,57 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Chess.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="sfml-window-d-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="openal32.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-audio-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-audio-d-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-graphics-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-graphics-d-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-network-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-network-d-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-system-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-system-d-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="sfml-window-2.dll">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pawn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

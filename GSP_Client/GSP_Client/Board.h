@@ -1,8 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
-#define SQUARE_SIZE 100
+#include "Common.h"
 
 class Board {
 public:

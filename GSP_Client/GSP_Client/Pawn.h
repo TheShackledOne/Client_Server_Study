@@ -1,12 +1,18 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "Common.h"
+#include "Protocol.h"
 
 class Pawn {
 public:
-	Pawn(const std::string& imagePath, const sf::Vector2f& position, std::string& playerName, sf::Font& font);
+	Pawn(const std::string& imagePath, const sf::Vector2f& position, 
+		std::string& playerName, sf::Font& font);
+
+	static void GetPawnId(SOCKET server_s, char* buf, WSABUF wsabuf[],
+		float& initX, float& initY, int& pawnId);
+
 	void draw(sf::RenderWindow& window);
-	void move(const sf::Keyboard::Key direction);
+	void move(float dx, float dy);
 
 private:
 	sf::Texture texture_;
