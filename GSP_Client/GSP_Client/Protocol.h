@@ -1,23 +1,27 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include <string>
 
-enum OperationCode {
-    OP_INIT = 1,
-    OP_MOVE = 2
-
-};
-
-struct PacketHeader {
-    unsigned int length;
-    OperationCode opCode;
-};
+typedef enum OperationType : unsigned char {
+    OP_GAMESTATE = 1,
+    OP_MOVE = 2,
+    OP_BROADCAST = 3,
+    OP_LOGOUT = 4
+}OP;
 
 struct MovePacket {
-    PacketHeader header;
+    unsigned char size;
     unsigned char Id;
+    unsigned char type;
     float x;
     float y;
     float dx;
     float dy;
     sf::Keyboard::Key direction;
+};
+
+struct UpdatePacket {
+    int type;
+    MovePacket m_packet[10];
+    int packet_count;
 };

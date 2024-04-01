@@ -1,25 +1,16 @@
 #include "Pawn.h"
 
-Pawn::Pawn(const std::string& imagePath, const sf::Vector2f& position, std::string& playerName, sf::Font& font)
-	: font_{ font }
+Pawn::Pawn(sf::Color color, float radius, const sf::Vector2f& position)
 {
-	texture_.loadFromFile(imagePath);
-	sprite_.setTexture(texture_);
-	sprite_.setPosition(position);
-	
-	text_.setFont(font);
-	text_.setString(playerName);
-	text_.setCharacterSize(36);
-	text_.setFillColor(sf::Color::Cyan);
-	sf::FloatRect textBounds = text_.getLocalBounds();
-	text_.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-	text_.setPosition(sprite_.getPosition().x + 50, sprite_.getPosition().y + 50);
+	pawnShape_.setRadius(radius);
+	pawnShape_.setFillColor(color);
+	pawnShape_.setOrigin(radius, radius);
+	pawnShape_.setPosition(position);
 }
 
 void Pawn::GetPawnId(SOCKET server_s, char* buf, WSABUF wsabuf[], float& initX, float& initY, int& pawnId)
 {
 	MovePacket* m_packet = reinterpret_cast<MovePacket*>(buf);
-	m_packet->header.opCode = OP_INIT;
 
 	wsabuf[0].buf = buf;
 	wsabuf[0].len = sizeof(MovePacket);
@@ -40,12 +31,18 @@ void Pawn::GetPawnId(SOCKET server_s, char* buf, WSABUF wsabuf[], float& initX, 
 
 void Pawn::draw(sf::RenderWindow& window)
 {
-	window.draw(sprite_);
-	window.draw(text_);
+	//window.draw(sprite_);
+	window.draw(pawnShape_);
 }
 
 void Pawn::move(float dx, float dy)
 {
-	sprite_.move(dx, dy);
-	text_.move(dx, dy);
+	//sprite_.move(dx, dy);
+	pawnShape_.move(dx, dy);
+}
+
+void Pawn::setPosition(float x, float y)
+{
+	//sprite_.setPosition(x, y); // sf::Sprite의 setPosition 메서드를 사용
+	pawnShape_.setPosition(x, y);
 }
